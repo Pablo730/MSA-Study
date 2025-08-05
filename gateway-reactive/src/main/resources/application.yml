@@ -33,7 +33,12 @@ spring:
               filters:
 #                - AddRequestHeader=s-request, 2st-request-header-by-kotlin
 #                - AddResponseHeader=s-response, 2st-response-header-from-kotlin
-                - CustomFilter
+                - name: CustomFilter
+                - name: LoggingFilter
+                  args:
+                    baseMessage: Hi, there.
+                    preLogger: true
+                    postLogger: true
           default-filters:
             - name: GlobalFilter
               args:

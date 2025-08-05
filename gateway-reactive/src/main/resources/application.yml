@@ -34,3 +34,9 @@ spring:
 #                - AddRequestHeader=s-request, 2st-request-header-by-kotlin
 #                - AddResponseHeader=s-response, 2st-response-header-from-kotlin
                 - CustomFilter
+          default-filters:
+            - name: GlobalFilter
+              args:
+                baseMessage: Spring Cloud Gateway Webflux Global Filter
+                preLogger: true
+                postLogger: true

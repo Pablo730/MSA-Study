@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: msa-catalog-service
+    name: msa-order-service
   h2:
     console:
       enabled: true
@@ -22,6 +22,14 @@ spring:
     generate-ddl: true
     database: h2
     defer-datasource-initialization: true
+  security:
+    user:
+      name: test
+      password: $2a$10$MfHrLw/sjpTqrW2Hveg9uu0WyDP3.Z4uuj9lnJdn5UJ1CLs5pnski
+
+logging:
+  level:
+    org.springframework.security: DEBUG
 
 eureka:
   instance:

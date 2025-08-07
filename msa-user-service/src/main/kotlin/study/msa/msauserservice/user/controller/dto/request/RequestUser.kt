@@ -3,10 +3,10 @@ package study.msa.msauserservice.user.controller.dto.request
 import org.apache.coyote.BadRequestException
 import study.msa.msauserservice.user.service.dto.UserDto
 
-class RequestUser (
-    val email: String? = null,
-    val pwd: String? = null,
-    val name: String? = null
+data class RequestUser (
+    private val email: String? = null,
+    private val pwd: String? = null,
+    private val name: String? = null
 ) {
     fun toUserDtoWithValidation(): UserDto {
         if (email.isNullOrBlank()) {
@@ -21,7 +21,7 @@ class RequestUser (
         return UserDto(
             email = this.email,
             pwd = this.pwd,
-            name = this.name
+            name = this.name,
         )
     }
 }

@@ -1,24 +1,27 @@
-package study.msa.msauserservice.user.controller.dto.response
+package study.msa.msauserservice.user.service.dto
 
-import study.msa.msauserservice.user.service.dto.UserDto
-import java.util.Date
+import java.util.*
 
-data class ResponseUser (
+data class UserDetailDto(
+    val userId: String,
+    val pwd: String,
     val email: String,
     val name: String,
-    val userId: String,
+    val orders: List<OrderDto>,
     val createdAt: Date,
     val updatedAt: Date
 ) {
     companion object {
-        fun fromUserDto(userDto: UserDto): ResponseUser {
+        fun fromUserDtoAndOrders(userDto: UserDto, orders: List<OrderDto>): UserDetailDto {
             if (userDto.userId.isNullOrBlank() || userDto.createdAt == null || userDto.updatedAt == null) {
                 throw IllegalArgumentException("UserDto must have non-null userId, createdAt, and updatedAt")
             }
-            return ResponseUser(
+            return UserDetailDto(
+                userId = userDto.userId,
+                pwd = userDto.pwd,
                 email = userDto.email,
                 name = userDto.name,
-                userId = userDto.userId,
+                orders = orders,
                 createdAt = userDto.createdAt,
                 updatedAt = userDto.updatedAt
             )

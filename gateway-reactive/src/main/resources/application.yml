@@ -18,27 +18,31 @@ spring:
       server:
         webflux:
           routes:
-            - id: first-service
-              uri: lb://MY-FIRST-SERVICE
-              predicates:
-                - Path=/first-service/**
-              filters:
+#            - id: first-service
+#              uri: lb://MY-FIRST-SERVICE
+#              predicates:
+#                - Path=/first-service/**
+#              filters:
 #                - AddRequestHeader=f-request, 1st-request-header-by-kotlin
 #                - AddResponseHeader=f-response, 1st-response-header-from-kotlin
-                - CustomFilter
-            - id: second-service
-              uri: lb://MY-SECOND-SERVICE
-              predicates:
-                - Path=/second-service/**
-              filters:
+#                - CustomFilter
+#            - id: second-service
+#              uri: lb://MY-SECOND-SERVICE
+#              predicates:
+#                - Path=/second-service/**
+#              filters:
 #                - AddRequestHeader=s-request, 2st-request-header-by-kotlin
 #                - AddResponseHeader=s-response, 2st-response-header-from-kotlin
-                - name: CustomFilter
-                - name: LoggingFilter
-                  args:
-                    baseMessage: Hi, there.
-                    preLogger: true
-                    postLogger: true
+#                - name: CustomFilter
+#                - name: LoggingFilter
+#                  args:
+#                    baseMessage: Hi, there.
+#                    preLogger: true
+#                    postLogger: true
+            - id: msa-user-service
+              uri: lb://MSA-USER-SERVICE
+              predicates:
+                - Path=/user-service/**
           default-filters:
             - name: GlobalFilter
               args:

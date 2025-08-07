@@ -1,0 +1,41 @@
+server:
+  port: 60000
+
+spring:
+  application:
+    name: msa-user-service
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  security:
+    user:
+      name: test
+      password: $2a$10$MfHrLw/sjpTqrW2Hveg9uu0WyDP3.Z4uuj9lnJdn5UJ1CLs5pnski
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+
+greeting:
+  message: Welcome to the Simple E-commerce - 2nd.

@@ -43,6 +43,10 @@ spring:
               uri: lb://MSA-USER-SERVICE
               predicates:
                 - Path=/user-service/**
+            - id: msa-catalog-service
+              uri: lb://MSA-CATALOG-SERVICE
+              predicates:
+                - Path=/catalog-service/**
           default-filters:
             - name: GlobalFilter
               args:

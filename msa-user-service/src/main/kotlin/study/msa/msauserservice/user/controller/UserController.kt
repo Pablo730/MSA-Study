@@ -25,25 +25,19 @@ class UserController(
 ) {
     @GetMapping("/health-check")
     fun status(): String {
-        val port = env.getProperty("local.server.port")
-        val serverPort = env.getProperty("server.port")
-        return "It's Working in User Service, port(local.server.port)= $port, port(server.port)= $serverPort"
+        return "It's Working in User Service, port(local.server.port): ${env.getProperty("local.server.port")}, port(server.port): ${env.getProperty("server.port")}"
     }
 
     @GetMapping("/welcome")
     fun welcome(request: HttpServletRequest): String {
-        val addr = request.remoteAddr
-        val host = request.remoteHost
-        val uri = request.requestURI
-        val url = request.requestURL
-        logger.info { "users.welcome ip: $addr, $host, $uri, $url" }
+        logger.info { "users.welcome ip: ${request.remoteAddr}, ${request.remoteHost}, ${request.requestURI}, ${request.requestURL}" }
         return greeting.message
     }
 
     @PostMapping("/users")
     fun createUser(@RequestBody requestUser: RequestUser): ResponseEntity<ResponseUser> {
-        val createdUserDto = userService.createUser(requestUser.toUserDtoWithValidation())
-        val responseUser = ResponseUser.fromUserDto(createdUserDto)
+        val userDto = userService.createUser(requestUser.toCreateUserDtoWithValidation())
+        val responseUser = ResponseUser.fromUserDto(userDto)
 
         return ResponseEntity.status(HttpStatus.CREATED).body(responseUser)
     }

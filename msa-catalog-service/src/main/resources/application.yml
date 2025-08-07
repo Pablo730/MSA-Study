@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: msa-user-service
+    name: msa-catalog-service
   h2:
     console:
       enabled: true
@@ -17,7 +17,11 @@ spring:
     password:
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    database: h2
+    defer-datasource-initialization: true
   security:
     user:
       name: test
@@ -36,6 +40,3 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
-
-greeting:
-  message: Welcome to the Simple E-commerce - 2nd.

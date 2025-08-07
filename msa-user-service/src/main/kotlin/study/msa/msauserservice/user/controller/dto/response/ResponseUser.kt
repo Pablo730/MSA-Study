@@ -12,9 +12,6 @@ data class ResponseUser (
 ) {
     companion object {
         fun fromUserDto(userDto: UserDto): ResponseUser {
-            if (userDto.userId.isNullOrBlank() || userDto.createdAt == null || userDto.updatedAt == null) {
-                throw IllegalArgumentException("UserDto must have non-null userId, createdAt, and updatedAt")
-            }
             return ResponseUser(
                 email = userDto.email,
                 name = userDto.name,

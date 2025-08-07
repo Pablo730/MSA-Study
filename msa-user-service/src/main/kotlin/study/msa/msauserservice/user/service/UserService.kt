@@ -2,12 +2,11 @@ package study.msa.msauserservice.user.service
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.apache.coyote.BadRequestException
-import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException
-import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.stereotype.Service
 import study.msa.msauserservice.user.jpa.UserEntity
 import study.msa.msauserservice.user.jpa.UserRepository
+import study.msa.msauserservice.user.service.dto.CreateUserDto
 import study.msa.msauserservice.user.service.dto.OrderDto
 import study.msa.msauserservice.user.service.dto.UserDetailDto
 import study.msa.msauserservice.user.service.dto.UserDto
@@ -22,12 +21,11 @@ class UserService(
     val userRepository: UserRepository,
     val passwordEncoder: BCryptPasswordEncoder
 ) {
-    fun createUser(userDto: UserDto): UserDto {
+    fun createUser(createUserDto: CreateUserDto): UserDto {
         val randomUserId = UUID.randomUUID().toString()
-        val cryptoPwd = passwordEncoder.encode(userDto.pwd)
-        val userEntity = userRepository.save(userDto.toCreateEntity(randomUserId, cryptoPwd))
-        val createdEntityId = userEntity.id ?: throw IllegalStateException("Entity ID should not be null after saving")
-        logger.info { "Created user id: $createdEntityId" }
+        val cryptoPwd = passwordEncoder.encode(createUserDto.pwd)
+        val userEntity = userRepository.save(createUserDto.toCreateEntity(randomUserId, cryptoPwd))
+        logger.info { "Created user id: ${userEntity.id}" }
 
         return UserDto.fromEntity(userEntity)
     }
@@ -39,8 +37,8 @@ class UserService(
     }
 
     fun getUserByUserId(userId: String): UserDetailDto {
-        val userEntity: UserEntity = userRepository.findByUserId(userId) ?: throw BadRequestException("User not found with userId: $userId")
-        val userDto: UserDto = UserDto.fromEntity(userEntity)
+        val userEntity = userRepository.findByUserId(userId) ?: throw BadRequestException("User not found with userId: $userId")
+        val userDto = UserDto.fromEntity(userEntity)
         val orders: List<OrderDto> = ArrayList()
 
         return UserDetailDto.fromUserDtoAndOrders(userDto, orders)

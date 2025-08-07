@@ -1,4 +1,4 @@
-package study.msa.msauserservice.user.jpa
+package study.msa.msacatalogservice.catalog.jpa
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
@@ -10,22 +10,22 @@ import org.hibernate.annotations.ColumnDefault
 import java.util.Date
 
 @Entity
-@Table(name = "users")
-class UserEntity (
+@Table(name = "catalog")
+class CatalogEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Long? = null,
+    val id: Long,
 
-    @Column(nullable = false, length = 50, unique = true)
-    val email: String,
+    @Column(nullable = false, length = 120, unique = true)
+    val productId: String,
 
-    @Column(nullable = false, length = 50)
-    val name: String,
+    @Column(nullable = false)
+    val productName: String,
 
-    @Column(nullable = false, unique = true)
-    val userId: String,
+    @Column(nullable = false)
+    val stock: Int,
 
-    @Column(nullable = false, unique = true)
-    val encryptedPwd: String,
+    @Column(nullable = false)
+    val unitPrice: Int,
 
     @Column(nullable = false, updatable = false, insertable = false)
     @ColumnDefault(value = "CURRENT_TIMESTAMP")

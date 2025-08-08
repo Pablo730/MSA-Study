@@ -18,10 +18,31 @@ spring:
       server:
         webflux:
           routes:
-            - id: msa-user-service
+            - id: user-service-register
+              uri: lb://MSA-USER-SERVICE
+              predicates:
+                - Path=/user-service/users
+                - Method=POST
+              filters:
+                - RemoveRequestHeader=Cookie
+                - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - id: user-service-login
+              uri: lb://MSA-USER-SERVICE
+              predicates:
+                - Path=/user-service/login
+                - Method=POST
+              filters:
+                - RemoveRequestHeader=Cookie
+                - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - id: user-service
               uri: lb://MSA-USER-SERVICE
               predicates:
                 - Path=/user-service/**
+                - Method=GET
+              filters:
+                - RemoveRequestHeader=Cookie
+                - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+                - AuthorizationHeaderFilter
             - id: msa-catalog-service
               uri: lb://MSA-CATALOG-SERVICE
               predicates:
@@ -57,3 +78,6 @@ spring:
                 baseMessage: Spring Cloud Gateway Webflux Global Filter
                 preLogger: true
                 postLogger: true
+
+token:
+  secret: my-very-long-secret-key-1234567890123456

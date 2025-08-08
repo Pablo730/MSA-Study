@@ -17,11 +17,11 @@ import study.msa.msauserservice.user.service.dto.UserDto
 private val logger = KotlinLogging.logger {}
 
 @RestController
-@RequestMapping("user-service")
+@RequestMapping()
 class UserController(
-    val env: Environment,
-    val greeting: Greeting,
-    val userService: UserService
+    private val env: Environment,
+    private val greeting: Greeting,
+    private val userService: UserService
 ) {
     @GetMapping("/health-check")
     fun status(): String {

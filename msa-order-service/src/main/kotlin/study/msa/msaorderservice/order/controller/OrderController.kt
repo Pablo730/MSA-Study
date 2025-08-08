@@ -46,6 +46,6 @@ class OrderController (
         val orders: Iterable<OrderDto> = orderService.getOrdersByUserId(userId)
         logger.info { "Add retrieved orders data" }
 
-        return ResponseEntity.status(HttpStatus.OK).body(orders.map { ResponseOrder.fromOrderDto(it) })
+        return ResponseEntity.ok().body(orders.map { ResponseOrder.fromOrderDto(it) })
     }
 }

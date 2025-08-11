@@ -14,23 +14,16 @@ import reactor.core.publisher.Mono
 private val logger = KotlinLogging.logger {}
 
 @Component
-class CustomFilter : AbstractGatewayFilterFactory<CustomFilter.Config>(Config::class.java) {
+class CustomFilter : AbstractGatewayFilterFactory<CustomFilter.Config>(Config::class.java)
+{
+    class Config
 
     override fun apply(config: Config): GatewayFilter {
         return GatewayFilter { exchange: ServerWebExchange, chain: GatewayFilterChain ->
-            val request: ServerHttpRequest = exchange.request
-            val response: ServerHttpResponse = exchange.response
-
-            // Custom Pre Filter
-            val requestId = request.id
-            logger.info { "Custom PRE Filter: request id -> $requestId" }
+            logger.info { "Custom PRE Filter: request id -> ${exchange.request.id}" }
             chain.filter(exchange).then(Mono.fromRunnable {
-                // Custom Post Filter
-                val responseStatusCode = response.statusCode
-                logger.info { "Custom POST Filter: response code -> $responseStatusCode" }
+                logger.info { "Custom POST Filter: response code -> ${exchange.response.statusCode}" }
             })
         }
     }
-
-    class Config
 }

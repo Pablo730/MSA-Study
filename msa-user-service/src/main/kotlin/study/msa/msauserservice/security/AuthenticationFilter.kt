@@ -28,8 +28,8 @@ class AuthenticationFilter(
     private val userService: UserService,
     private val env: Environment,
     private val authenticationManager: AuthenticationManager
-) : UsernamePasswordAuthenticationFilter() {
-
+) : UsernamePasswordAuthenticationFilter()
+{
     @Throws(AuthenticationException::class)
     override fun attemptAuthentication(
         req: HttpServletRequest,

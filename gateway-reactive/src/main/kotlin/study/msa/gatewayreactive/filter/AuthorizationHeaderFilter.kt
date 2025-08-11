@@ -25,11 +25,11 @@ private val logger = KotlinLogging.logger {}
 
 @Component
 class AuthorizationHeaderFilter(
-    var env: Environment
+    private val env: Environment
 ): AbstractGatewayFilterFactory<AuthorizationHeaderFilter.Config>(Config::class.java) {
     class Config
 
-    override fun apply(config: AuthorizationHeaderFilter.Config): GatewayFilter {
+    override fun apply(config: Config): GatewayFilter {
         return GatewayFilter { exchange: ServerWebExchange, chain: GatewayFilterChain ->
             val request: ServerHttpRequest = exchange.request
             if (!request.headers.containsKey(HttpHeaders.AUTHORIZATION)) {
@@ -47,7 +47,7 @@ class AuthorizationHeaderFilter(
         }
     }
 
-    private fun onError(exchange: ServerWebExchange, err: String, httpStatus: HttpStatus): Mono<Void?> {
+    private fun onError(exchange: ServerWebExchange, err: String, httpStatus: HttpStatus): Mono<Void> {
         val response: ServerHttpResponse = exchange.response
         response.setStatusCode(httpStatus)
         logger.error { err }
@@ -69,12 +69,12 @@ class AuthorizationHeaderFilter(
                 .setSigningKey(signingKey)
                 .build()
 
-            subject = jwtParser.parseClaimsJws(jwt).getBody().getSubject()
+            subject = jwtParser.parseClaimsJws(jwt).body.subject
         } catch (ex: Exception) {
             returnValue = false
         }
 
-        if (subject == null || subject.isEmpty()) {
+        if (subject.isNullOrEmpty()) {
             returnValue = false
         }
 

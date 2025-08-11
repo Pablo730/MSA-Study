@@ -37,9 +37,11 @@ class WebSecurity(
             .authorizeHttpRequests(
                 { auth -> auth
                     .requestMatchers("/h2-console/**").permitAll() // 특정 경로 허용
+                    .requestMatchers("/actuator/**").permitAll() // 특정 경로 허용
+                    .requestMatchers("/health-check/**").permitAll() // 특정 경로 허용
                     .requestMatchers("/**").access(
                         // cmd -> ifconfig -> en0 -> inet
-                        WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddress('::1') or hasIpAddress('192.168.30.113') or hasIpAddress('::1')")
+                        WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddress('::1') or hasIpAddress('192.168.30.223') or hasIpAddress('::1')")
                     ) // host pc ip address
                     .anyRequest().authenticated() // 모든 요청은 인증 필요
                 }
@@ -47,7 +49,7 @@ class WebSecurity(
             .authenticationManager(authenticationManager)
             .addFilter(getAuthenticationFilter(authenticationManager))
             .httpBasic(Customizer.withDefaults()) // ← Basic 인증 추가
-            .headers { headers: HeadersConfigurer<HttpSecurity?> -> headers.frameOptions( { frameOptions -> frameOptions.sameOrigin() }) }
+            .headers { headers: HeadersConfigurer<HttpSecurity> -> headers.frameOptions( { frameOptions -> frameOptions.sameOrigin() }) }
 
         return http.build()
     }

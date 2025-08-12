@@ -13,6 +13,11 @@ eureka:
 spring:
   application:
     name: gateway-reactive
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: guest
+    password: guest
 #  config:
 #    import: "optional:configserver:http://localhost:8888"
   cloud:
@@ -33,6 +38,14 @@ spring:
               predicates:
                 - Path=/user-service/login
                 - Method=POST
+              filters:
+                - RemoveRequestHeader=Cookie
+                - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+            - id: user-service-actuator
+              uri: lb://MSA-USER-SERVICE
+              predicates:
+                - Path=/user-service/actuator/**
+                - Method=GET,POST
               filters:
                 - RemoveRequestHeader=Cookie
                 - RewritePath=/user-service/(?<segment>.*), /$\{segment}
@@ -94,3 +107,4 @@ management:
           - beans
           - info
           - httpexchanges
+          - busrefresh

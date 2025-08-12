@@ -33,6 +33,7 @@ spring:
 logging:
   level:
     org.springframework.security: DEBUG
+    study.msa.msauserservice.client: DEBUG
 
 eureka:
   instance:

@@ -1,15 +1,13 @@
 package study.msa.msauserservice.user.jpa
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
-import org.hibernate.annotations.ColumnDefault
-import java.util.Date
+import jakarta.persistence.*
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
+import java.util.*
 
 @Entity
+@EntityListeners(AuditingEntityListener::class)
 @Table(name = "users")
 class UserEntity (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +25,11 @@ class UserEntity (
     @Column(nullable = false, unique = true)
     val encryptedPwd: String,
 
-    @Column(nullable = false, updatable = false, insertable = false)
-    @ColumnDefault(value = "CURRENT_TIMESTAMP")
+    @CreatedDate
+    @Column(updatable = false, nullable = false)
     val createdAt: Date? = null,
 
-    @Column(nullable = false, updatable = true, insertable = false)
-    @ColumnDefault(value = "CURRENT_TIMESTAMP")
+    @LastModifiedDate
+    @Column(nullable = false)
     val updatedAt: Date? = null
 )

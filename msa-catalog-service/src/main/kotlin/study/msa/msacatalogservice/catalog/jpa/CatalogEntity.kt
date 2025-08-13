@@ -1,15 +1,14 @@
 package study.msa.msacatalogservice.catalog.jpa
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.GenerationType
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import org.hibernate.annotations.ColumnDefault
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.util.Date
 
 @Entity
+@EntityListeners(AuditingEntityListener::class)
 @Table(name = "catalog")
 class CatalogEntity(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,11 +26,11 @@ class CatalogEntity(
     @Column(nullable = false)
     val unitPrice: Int,
 
-    @Column(nullable = false, updatable = false, insertable = false)
-    @ColumnDefault(value = "CURRENT_TIMESTAMP")
+    @CreatedDate
+    @Column(updatable = false, nullable = false)
     val createdAt: Date? = null,
 
-    @Column(nullable = false, updatable = true, insertable = false)
-    @ColumnDefault(value = "CURRENT_TIMESTAMP")
+    @LastModifiedDate
+    @Column(nullable = false)
     val updatedAt: Date? = null
 )

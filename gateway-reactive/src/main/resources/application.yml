@@ -16,8 +16,8 @@ spring:
   rabbitmq:
     host: 127.0.0.1
     port: 5672
-    username: guest
-    password: guest
+    username: admin
+    password: admin
 #  config:
 #    import: "optional:configserver:http://localhost:8888"
   cloud:

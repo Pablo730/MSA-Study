@@ -7,28 +7,38 @@ spring:
   rabbitmq:
     host: 127.0.0.1
     port: 5672
-    username: guest
-    password: guest
+    username: admin
+    password: admin
 #  config:
 #    import: "optional:configserver:http://localhost:8888"
-  h2:
-    console:
-      enabled: true
-      settings:
-        web-allow-others: true
-      path: /h2-console
+#  h2:
+#    console:
+#      enabled: true
+#      settings:
+#        web-allow-others: true
+#      path: /h2-console
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;
-    username: sa
-    password:
+    url: jdbc:mysql://localhost:3306/msa-user-1
+    username: root
+    password: root
   jpa:
     hibernate:
       ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+    database: mysql
+    defer-datasource-initialization: true
   security:
     user:
       name: test
       password: $2a$10$MfHrLw/sjpTqrW2Hveg9uu0WyDP3.Z4uuj9lnJdn5UJ1CLs5pnski
+#  redis:
+#    host: localhost
+#    port: 6379
+#    redisson:
+#      config:
+#        singleServerConfig:
+#          address: "redis://127.0.0.1:6379"
 
 logging:
   level:

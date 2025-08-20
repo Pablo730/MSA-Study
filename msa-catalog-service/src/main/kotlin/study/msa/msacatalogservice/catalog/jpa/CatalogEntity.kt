@@ -21,7 +21,7 @@ class CatalogEntity(
     val productName: String,
 
     @Column(nullable = false)
-    val stock: Int,
+    var stock: Int,
 
     @Column(nullable = false)
     val unitPrice: Int,
@@ -33,4 +33,12 @@ class CatalogEntity(
     @LastModifiedDate
     @Column(nullable = false)
     val updatedAt: Date? = null
-)
+) {
+    fun decreaseStock(stock: Int) {
+        this.stock -= stock
+    }
+
+    override fun toString(): String {
+        return "CatalogEntity(id=$id, productId='$productId', productName='$productName', stock=$stock, unitPrice=$unitPrice, createdAt=$createdAt, updatedAt=$updatedAt)"
+    }
+}

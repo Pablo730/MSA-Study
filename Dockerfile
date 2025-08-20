@@ -1,7 +1,12 @@
-FROM confluentinc/cp-kafka-connect:7.2.15
+FROM confluentinc/cp-kafka-connect-base:7.8.0
 
-# Confluent JDBC Connector 설치
-RUN confluent-hub install --no-prompt confluentinc/kafka-connect-jdbc:latest
+ENV CONNECT_PLUGIN_PATH="/usr/share/java"
 
-# MySQL JDBC 드라이버 추가 (버전은 필요 시 고정)
-ADD https://repo1.maven.org/maven2/com/mysql/mysql-connector-j/8.0.33/mysql-connector-j-8.0.33.jar /opt/connectors/mysql-connector-j.jar
+RUN confluent-hub install --no-prompt --component-dir /usr/share/java confluentinc/kafka-connect-jdbc:10.7.4
+RUN curl -L -o /usr/share/java/confluentinc-kafka-connect-jdbc/lib/mysql-connector-java-8.0.23.jar \
+    https://repo1.maven.org/maven2/mysql/mysql-connector-java/8.0.23/mysql-connector-java-8.0.23.jar
+
+
+EXPOSE 8083
+
+CMD ["/etc/confluent/docker/run"]

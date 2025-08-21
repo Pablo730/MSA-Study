@@ -41,7 +41,7 @@ class WebSecurity(
                     .requestMatchers("/health-check/**").permitAll() // 특정 경로 허용
                     .requestMatchers("/**").access(
                         // cmd -> ifconfig -> en0 -> inet
-                        WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddress('::1') or hasIpAddress('192.168.30.195') or hasIpAddress('::1')")
+                        WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddress('::1') or hasIpAddress('192.168.30.41') or hasIpAddress('::1')")
                     ) // host pc ip address
                     .anyRequest().authenticated() // 모든 요청은 인증 필요
                 }

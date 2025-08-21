@@ -21,21 +21,31 @@ repositories {
 extra["springCloudVersion"] = "2025.0.0"
 
 dependencies {
-	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webflux")
-	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-	implementation("org.springframework.cloud:spring-cloud-starter-config")
-	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp")
-	implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
-	implementation("io.github.oshai:kotlin-logging-jvm:7.0.11")
-	implementation("io.jsonwebtoken:jjwt-api:0.12.6")
-	implementation("io.jsonwebtoken:jjwt-impl:0.12.6")
-	implementation("io.jsonwebtoken:jjwt-jackson:0.12.6")
-	runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.94.Final:osx-aarch_64")
+	implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin reflection
+	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions") // Reactor Kotlin Extensions
+	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor") // Kotlin Coroutines for Reactor
+	implementation("io.github.oshai:kotlin-logging-jvm:7.0.11") // Kotlin Logging
+
+	implementation("org.springframework.boot:spring-boot-starter-actuator") // Spring Boot Actuator
+
+	implementation("io.jsonwebtoken:jjwt-api:0.12.6") // JJWT API for JWT handling
+	implementation("io.jsonwebtoken:jjwt-impl:0.12.6") // JJWT Implementation for JWT handling
+	implementation("io.jsonwebtoken:jjwt-jackson:0.12.6") // JJWT Jackson for JSON processing
+
+	implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webflux") // Spring Cloud Gateway with WebFlux
+	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client") // Eureka Client for Service Discovery
+	implementation("org.springframework.cloud:spring-cloud-starter-config") // Spring Cloud Config Client
+	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp") // Spring Cloud Bus with AMQP
+	implementation("org.springframework.cloud:spring-cloud-starter-bootstrap") // Spring Cloud Bootstrap for Configuration
+
+
+//	implementation("io.micrometer:micrometer-observation") // Micrometer Observation, Observability
+	implementation("io.micrometer:micrometer-registry-prometheus")
+
+	runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.94.Final:osx-aarch_64") // Netty DNS Resolver for macOS AArch64
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")

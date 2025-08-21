@@ -1,6 +1,7 @@
 package study.msa.msauserservice.user.controller
 
 import io.github.oshai.kotlinlogging.KotlinLogging
+import io.micrometer.core.annotation.Timed
 import jakarta.servlet.http.HttpServletRequest
 import org.apache.coyote.BadRequestException
 import org.springframework.core.env.Environment
@@ -24,6 +25,7 @@ class UserController(
     private val userService: UserService
 ) {
     @GetMapping("/health-check")
+    @Timed(value="users.status", longTask = true)
     fun status(): String {
         return String.format("It's Working in User Service"
                 + ", port(local.server.port): ${env.getProperty("local.server.port")}"
@@ -35,6 +37,7 @@ class UserController(
     }
 
     @GetMapping("/welcome")
+    @Timed(value="users.welcome", longTask = true)
     fun welcome(request: HttpServletRequest): String {
         logger.info { "users.welcome ip: ${request.remoteAddr}, ${request.remoteHost}, ${request.requestURI}, ${request.requestURL}" }
         return greeting.message

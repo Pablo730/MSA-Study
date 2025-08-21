@@ -2,6 +2,7 @@ package study.msa.msauserservice.user.service
 
 import io.github.oshai.kotlinlogging.KotlinLogging
 import org.apache.coyote.BadRequestException
+import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory
 import org.springframework.core.ParameterizedTypeReference
 import org.springframework.core.env.Environment
 import org.springframework.http.HttpMethod
@@ -30,6 +31,7 @@ class UserService(
     private val passwordEncoder: BCryptPasswordEncoder,
     private val restTemplate: RestTemplate,
     private val orderServiceClient: OrderServiceClient,
+    private val circuitBreakerFactory: CircuitBreakerFactory<*, *>,
     private val env: Environment
 ): UserDetailsService {
     fun createUser(createUserDto: CreateUserDto): UserDto {
@@ -61,8 +63,20 @@ class UserService(
             )
         val orders: List<OrderDto> = responseOrders.body ?: ArrayList()
          */
+
+        logger.info { "Before call orders microservice" }
         // FeignClient 사용한 주문 서비스 호출 예시
-        val orders: List<OrderDto> = orderServiceClient.getOrders(userId)
+//        val orders: List<OrderDto> = orderServiceClient.getOrders(userId)
+
+        val circuitBreaker = circuitBreakerFactory.create("circuitbreaker")
+        val orders = circuitBreaker.run(
+            { orderServiceClient.getOrders(userId) },
+            { throwable ->
+                logger.error(throwable) { "Error occurred while calling orders microservice" }
+                emptyList()
+            }
+        )
+        logger.info { "After called orders microservice" }
 
         return UserDetailDto.fromUserDtoAndOrders(userDto, orders)
     }

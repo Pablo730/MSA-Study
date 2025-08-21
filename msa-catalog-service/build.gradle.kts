@@ -27,16 +27,21 @@ dependencyManagement {
 	}
 }
 dependencies {
-	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-	implementation("org.springframework.boot:spring-boot-starter-web")
-	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client")
-	implementation("org.springframework.kafka:spring-kafka")
-	implementation("io.github.oshai:kotlin-logging-jvm:7.0.11")
+	implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin reflection
+	implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // Jackson Kotlin module
+	implementation("io.github.oshai:kotlin-logging-jvm:7.0.11") // Kotlin logging
+
+	implementation("org.springframework.boot:spring-boot-starter-web") // Spring Boot Web Starter
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // Spring Boot Data JPA Starter
+
+	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client") // Eureka Client
+
+	implementation("org.springframework.kafka:spring-kafka") // Spring Kafka for messaging
+
+	runtimeOnly("mysql:mysql-connector-java:8.0.33") // MySQL Connector for database access
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
-//	runtimeOnly("com.h2database:h2")
-	runtimeOnly("mysql:mysql-connector-java:8.0.33")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")

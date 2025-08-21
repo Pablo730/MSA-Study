@@ -4,12 +4,6 @@ server:
 spring:
   application:
     name: msa-order-service
-#  h2:
-#    console:
-#      enabled: true
-#      settings:
-#        web-allow-others: true
-#      path: /h2-console
   datasource:
     url: jdbc:mysql://localhost:3306/msa-order-1
     username: root
@@ -26,9 +20,6 @@ spring:
       name: test
       password: $2a$10$MfHrLw/sjpTqrW2Hveg9uu0WyDP3.Z4uuj9lnJdn5UJ1CLs5pnski
 
-logging:
-  level:
-    org.springframework.security: DEBUG
 
 eureka:
   instance:
@@ -39,3 +30,26 @@ eureka:
       defaultZone: http://localhost:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, beans, info, busrefresh, metrics, prometheus
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: B3
+      produce: B3
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"
+
+#logging:
+#  pattern:
+#    level: "%5p [%X{traceId:-},%X{spanId:-}]"
+
+#logging:
+#  level:
+#    study.msa.msaorderservice.client: DEBUG

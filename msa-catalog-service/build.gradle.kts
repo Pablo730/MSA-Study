@@ -33,10 +33,15 @@ dependencies {
 
 	implementation("org.springframework.boot:spring-boot-starter-web") // Spring Boot Web Starter
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // Spring Boot Data JPA Starter
+	implementation("org.springframework.boot:spring-boot-starter-actuator") // Spring Boot Actuator Starter
 
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client") // Eureka Client
 
 	implementation("org.springframework.kafka:spring-kafka") // Spring Kafka for messaging
+
+	implementation("io.micrometer:micrometer-tracing-bridge-brave") // Micrometer Tracing with Brave
+	implementation("io.zipkin.reporter2:zipkin-reporter-brave") // Zipkin Reporter for Brave
+	implementation("io.micrometer:micrometer-registry-prometheus") // Micrometer Prometheus Registry
 
 	runtimeOnly("mysql:mysql-connector-java:8.0.33") // MySQL Connector for database access
 

@@ -45,7 +45,7 @@ dependencies {
 	implementation("io.micrometer:micrometer-tracing-bridge-brave") // Micrometer Tracing, Brave
 	implementation("io.zipkin.reporter2:zipkin-reporter-brave") // Zipkin Reporter, Brave
 	implementation("io.github.openfeign:feign-micrometer") // Feign Micrometer, Metrics for Feign Clients
-	implementation("io.micrometer:micrometer-registry-prometheus")
+	implementation("io.micrometer:micrometer-registry-prometheus") // Micrometer Prometheus Registry, Metrics Exporter
 
 	runtimeOnly("mysql:mysql-connector-java:8.0.33") // MySQL Connector, Database Connectivity
 

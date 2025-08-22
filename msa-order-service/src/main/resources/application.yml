@@ -14,12 +14,7 @@ spring:
     show-sql: true
     generate-ddl: true
     database: mysql
-    defer-datasource-initialization: true
-  security:
-    user:
-      name: test
-      password: $2a$10$MfHrLw/sjpTqrW2Hveg9uu0WyDP3.Z4uuj9lnJdn5UJ1CLs5pnski
-
+#    defer-datasource-initialization: true
 
 eureka:
   instance:

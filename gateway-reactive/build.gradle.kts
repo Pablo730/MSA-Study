@@ -38,9 +38,9 @@ dependencies {
 	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp") // Spring Cloud Bus with AMQP
 	implementation("org.springframework.cloud:spring-cloud-starter-bootstrap") // Spring Cloud Bootstrap for Configuration
 
-
-//	implementation("io.micrometer:micrometer-observation") // Micrometer Observation, Observability
-	implementation("io.micrometer:micrometer-registry-prometheus")
+	implementation("io.micrometer:micrometer-tracing-bridge-brave") // Micrometer Tracing with Brave
+	implementation("io.zipkin.reporter2:zipkin-reporter-brave") // Zipkin Reporter for Brave
+	implementation("io.micrometer:micrometer-registry-prometheus") // Micrometer Prometheus Registry
 
 	runtimeOnly("io.netty:netty-resolver-dns-native-macos:4.1.94.Final:osx-aarch_64") // Netty DNS Resolver for macOS AArch64
 

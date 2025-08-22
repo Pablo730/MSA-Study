@@ -11,12 +11,6 @@ spring:
     password: admin
 #  config:
 #    import: "optional:configserver:http://localhost:8888"
-#  h2:
-#    console:
-#      enabled: true
-#      settings:
-#        web-allow-others: true
-#      path: /h2-console
   datasource:
     url: jdbc:mysql://localhost:3306/msa-user-1
     username: root
@@ -27,7 +21,7 @@ spring:
     show-sql: true
     generate-ddl: true
     database: mysql
-    defer-datasource-initialization: true
+#    defer-datasource-initialization: true
   security:
     user:
       name: test

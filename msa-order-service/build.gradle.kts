@@ -36,8 +36,7 @@ dependencies {
 
     implementation("io.micrometer:micrometer-tracing-bridge-brave") // Micrometer Tracing with Brave
     implementation("io.zipkin.reporter2:zipkin-reporter-brave") // Zipkin Reporter for Brave
-//    implementation("io.micrometer:micrometer-observation") // Micrometer Observation, Observability
-    implementation("io.micrometer:micrometer-registry-prometheus")
+    implementation("io.micrometer:micrometer-registry-prometheus") // Micrometer Prometheus Registry
 
     runtimeOnly("mysql:mysql-connector-java:8.0.33") // MySQL Connector for database access
 

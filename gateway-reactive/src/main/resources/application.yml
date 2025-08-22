@@ -33,6 +33,7 @@ spring:
               filters:
                 - RemoveRequestHeader=Cookie
                 - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
             - id: user-service-login
               uri: lb://MSA-USER-SERVICE
               predicates:
@@ -41,6 +42,7 @@ spring:
               filters:
                 - RemoveRequestHeader=Cookie
                 - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
             - id: user-service-actuator
               uri: lb://MSA-USER-SERVICE
               predicates:
@@ -49,6 +51,7 @@ spring:
               filters:
                 - RemoveRequestHeader=Cookie
                 - RewritePath=/user-service/(?<segment>.*), /$\{segment}
+
             - id: user-service
               uri: lb://MSA-USER-SERVICE
               predicates:
@@ -58,14 +61,35 @@ spring:
                 - RemoveRequestHeader=Cookie
                 - RewritePath=/user-service/(?<segment>.*), /$\{segment}
                 - AuthorizationHeaderFilter
-            - id: msa-catalog-service
+
+            - id: catalog-service-actuator
+              uri: lb://MSA-CATALOG-SERVICE
+              predicates:
+                - Path=/catalog-service/actuator/**
+                - Method=GET,POST
+              filters:
+                - RemoveRequestHeader=Cookie
+                - RewritePath=/catalog-service/(?<segment>.*), /$\{segment}
+
+            - id: catalog-service
               uri: lb://MSA-CATALOG-SERVICE
               predicates:
                 - Path=/catalog-service/**
-            - id: msa-order-service
+
+            - id: order-service-actuator
+              uri: lb://MSA-ORDER-SERVICE
+              predicates:
+                - Path=/order-service/actuator/**
+                - Method=GET,POST
+              filters:
+                - RemoveRequestHeader=Cookie
+                - RewritePath=/order-service/(?<segment>.*), /$\{segment}
+
+            - id: order-service
               uri: lb://MSA-ORDER-SERVICE
               predicates:
                 - Path=/order-service/**
+
             - id: first-service
               uri: lb://MY-FIRST-SERVICE
               predicates:
@@ -74,6 +98,7 @@ spring:
                 - AddRequestHeader=f-request, 1st-request-header-by-kotlin
                 - AddResponseHeader=f-response, 1st-response-header-from-kotlin
                 - CustomFilter
+
             - id: second-service
               uri: lb://MY-SECOND-SERVICE
               predicates:
@@ -87,6 +112,7 @@ spring:
                     baseMessage: Hi, there.
                     preLogger: true
                     postLogger: true
+
           default-filters:
             - name: GlobalFilter
               args:
@@ -102,3 +128,12 @@ management:
     web:
       exposure:
         include: refresh, health, beans, info, httpexchanges, busrefresh, metrics, prometheus
+  tracing:
+    sampling:
+      probability: 1.0
+    propagation:
+      consume: B3
+      produce: B3
+  zipkin:
+    tracing:
+      endpoint: "http://localhost:9411/api/v2/spans"

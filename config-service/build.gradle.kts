@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "study.msa"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 
 java {
 	toolchain {
@@ -21,11 +21,15 @@ repositories {
 extra["springCloudVersion"] = "2025.0.0"
 
 dependencies {
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.cloud:spring-cloud-starter-bootstrap")
-	implementation("org.springframework.cloud:spring-cloud-config-server")
-	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp")
+	implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin reflection library
+	implementation("io.github.cdimascio:dotenv-kotlin:6.5.1") // Dotenv library for environment variable management
+
+	implementation("org.springframework.boot:spring-boot-starter-validation") // Spring Boot Starter for validation
+	implementation("org.springframework.boot:spring-boot-starter-actuator") // Spring Boot Actuator for monitoring and management
+
+	implementation("org.springframework.cloud:spring-cloud-config-server") // Spring Cloud Config Server for centralized configuration management
+	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp") // Spring Cloud Bus with AMQP for distributed messaging
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
@@ -45,4 +49,8 @@ kotlin {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+springBoot {
+	buildInfo()
 }

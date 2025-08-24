@@ -1,34 +1,31 @@
 server:
-  port: 8888
+  port: ${SERVER_PORT:8888} # :8888은 기본값으로, 변수가 없을 경우 사용됩니다.
 
 spring:
   application:
     name: config-service
   rabbitmq:
-    host: 127.0.0.1
-    port: 5672
-    username: admin
-    password: admin
+    host: ${RABBITMQ_HOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
   profiles:
     active: git
   cloud:
     config:
       server:
-#        native:
-#          search-locations: file://${user.home}/Desktop/Work/native-file-repo
-        git: #default
-          uri: https://github.com/Pablo730/spring-cloud-config
-          default-label: main
-#          username: [username]
-#          password: [password]
+        git:
+          uri: ${CONFIG_SERVER_GIT_URI}
+          default-label: ${CONFIG_SERVER_GIT_LABEL}
 
 management:
   endpoints:
     web:
       exposure:
-        include:
-          - refresh
-          - health
-          - beans
-          - info
-          - busrefresh
+        include: health, beans, info, busrefresh
+
+encrypt:
+  key-store:
+    location: file:./config-service/apiEncryptKey.jks
+    password: ${KEY_STORE_PASSWORD}
+    alias: apiEncryptKey

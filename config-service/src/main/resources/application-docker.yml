@@ -1,0 +1,3 @@
+encrypt:
+  key-store:
+    location: file:./apiEncryptKey.jks

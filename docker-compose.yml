@@ -35,6 +35,8 @@ services:
       RABBITMQ_DEFAULT_PASS: admin
     volumes:
       - ./docker-volumes/rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - msa-net
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.2.15
@@ -151,3 +153,7 @@ services:
       - '--path.rootfs=/rootfs'
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     restart: unless-stopped
+
+networks:
+  msa-net:
+    external: true

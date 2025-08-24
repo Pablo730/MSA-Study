@@ -10,8 +10,8 @@ import org.springframework.validation.annotation.Validated
 @Validated @ConfigurationProperties(prefix = "spring.rabbitmq")
 data class RabbitMqProperties(
     @field:Pattern(
-        regexp = "^(localhost|(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)))$",
-        message = "RabbitMQ 호스트는 'localhost' 또는 올바른 IP 주소 형식이어야 합니다."
+        regexp = "^(rabbitmq|localhost|(((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)))$",
+        message = "RabbitMQ 호스트는 'rabbitmq', 'localhost' 또는 올바른 IP 주소 형식이어야 합니다."
     )
     val host: String,
 

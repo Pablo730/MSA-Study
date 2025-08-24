@@ -17,6 +17,10 @@ spring:
         git:
           uri: ${CONFIG_SERVER_GIT_URI}
           default-label: ${CONFIG_SERVER_GIT_LABEL}
+  security:
+    user:
+      name: ${CONFIG_SERVER_USER}
+      password: ${CONFIG_SERVER_PASSWORD}
 
 management:
   endpoints:

@@ -26,6 +26,7 @@ dependencies {
 
 	implementation("org.springframework.boot:spring-boot-starter-validation") // Spring Boot Starter for validation
 	implementation("org.springframework.boot:spring-boot-starter-actuator") // Spring Boot Actuator for monitoring and management
+	implementation("org.springframework.boot:spring-boot-starter-security") // Spring Boot Starter for security
 
 	implementation("org.springframework.cloud:spring-cloud-config-server") // Spring Cloud Config Server for centralized configuration management
 	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp") // Spring Cloud Bus with AMQP for distributed messaging

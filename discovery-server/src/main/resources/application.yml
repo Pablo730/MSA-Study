@@ -1,11 +1,17 @@
 server:
-  port: 8761
+  port: ${SERVER_PORT:8761} # :8761은 기본값으로, 변수가 없을 경우 사용됩니다.
 
 spring:
   application:
     name: discovery-server
+  security:
+    user:
+      name: ${DISCOVERY_SERVER_USER}
+      password: ${DISCOVERY_SERVER_PASSWORD}
 
 eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+    service-url:
+      defaultZone: http://${spring.security.user.name}:${spring.security.user.password}@${spring.cloud.client.ip-address}:${server.port}/eureka/

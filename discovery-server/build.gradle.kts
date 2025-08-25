@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "study.msa"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 
 java {
 	toolchain {
@@ -21,8 +21,14 @@ repositories {
 extra["springCloudVersion"] = "2025.0.0"
 
 dependencies {
-	implementation("org.jetbrains.kotlin:kotlin-reflect")
-	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server")
+	implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin reflection library
+	implementation("io.github.cdimascio:dotenv-kotlin:6.5.1") // Dotenv library for environment variable management
+
+	implementation("org.springframework.boot:spring-boot-starter-validation") // Spring Boot Starter for validation
+	implementation("org.springframework.boot:spring-boot-starter-security") // Spring Boot Starter for security
+
+	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-server") // Spring Cloud Eureka Server for service discovery
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")

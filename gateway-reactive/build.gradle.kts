@@ -25,8 +25,12 @@ dependencies {
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions") // Reactor Kotlin Extensions
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor") // Kotlin Coroutines for Reactor
 	implementation("io.github.oshai:kotlin-logging-jvm:7.0.11") // Kotlin Logging
+	implementation("io.github.cdimascio:dotenv-kotlin:6.5.1") // Dotenv library for environment variable management
+	implementation("com.github.ben-manes.caffeine:caffeine") // Caffeine caching library
 
+	implementation("org.springframework.boot:spring-boot-starter-validation") // Spring Boot Starter for validation
 	implementation("org.springframework.boot:spring-boot-starter-actuator") // Spring Boot Actuator
+	implementation("org.springframework.boot:spring-boot-starter-cache") // Spring Boot Starter for caching
 
 	implementation("io.jsonwebtoken:jjwt-api:0.12.6") // JJWT API for JWT handling
 	implementation("io.jsonwebtoken:jjwt-impl:0.12.6") // JJWT Implementation for JWT handling
@@ -67,4 +71,8 @@ kotlin {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+springBoot {
+	buildInfo()
 }

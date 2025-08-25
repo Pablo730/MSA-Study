@@ -75,7 +75,7 @@ Dockerfile을 사용하여 이미지를 빌드하고, docker-compose로 인프�
 # 1. 프로젝트 최상위 폴더(MSA-Study)에서 실행
 
 # 2. Docker 이미지 빌드
-$ docker build -t config-service:1.0 ./config-service
+$ docker build -t config-service:1.0.0 ./config-service
 
 # 3-1. docker-compose.yml 파일에 config-service가 포함되어 있는지 확인 후,
 #    모든 서비스를 함께 실행 (local 환경 기준)
@@ -85,7 +85,7 @@ $ docker-compose up -d
 #    docker run 명령어로 단독 실행 (local 환경 기준)
 $ docker run -d -p 8888:8888 --network msa-net \
     -e "spring.rabbitmq.host=rabbitmq" \
-    --name config-service config-service:1.0
+    --name config-service config-service:1.0.0
 ```
 
 # 🔌 API 엔드포인트

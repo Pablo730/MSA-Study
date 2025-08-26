@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "study.msa"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 
 java {
 	toolchain {
@@ -30,12 +30,18 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin reflection
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // Jackson Kotlin module
 	implementation("io.github.oshai:kotlin-logging-jvm:7.0.11") // Kotlin logging
+	implementation("io.github.cdimascio:dotenv-kotlin:6.5.1") // Dotenv library for environment variable management
+	implementation("com.github.ben-manes.caffeine:caffeine") // Caffeine caching library
 
 	implementation("org.springframework.boot:spring-boot-starter-web") // Spring Boot Web Starter
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // Spring Boot Data JPA Starter
 	implementation("org.springframework.boot:spring-boot-starter-actuator") // Spring Boot Actuator Starter
+	implementation("org.springframework.boot:spring-boot-starter-cache") // Spring Boot Starter for caching
 
 	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client") // Eureka Client
+	implementation("org.springframework.cloud:spring-cloud-starter-config") // Config Server, Spring Cloud Config
+	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp") // Spring Cloud Bus, RabbitMQ
+	implementation("org.springframework.cloud:spring-cloud-starter-bootstrap") // Bootstrap, Spring Cloud Bootstrap
 
 	implementation("org.springframework.kafka:spring-kafka") // Spring Kafka for messaging
 
@@ -72,4 +78,8 @@ allOpen {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+springBoot {
+	buildInfo()
 }

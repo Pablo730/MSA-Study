@@ -48,6 +48,20 @@ services:
     networks:
       - msa-net
 
+  catalog-service:
+    build: ./msa-catalog-service
+    image: catalog-service:1.0.0
+    container_name: catalog-service
+    ports:
+      - "8095:8095"
+    depends_on:
+      discovery-server:
+        condition: service_started
+      config-service:
+        condition: service_started
+    networks:
+      - msa-net
+
 networks:
   msa-net:
     external: true

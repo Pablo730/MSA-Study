@@ -47,8 +47,8 @@ User Service를 실행하기 전에 아래 사항들을 반드시 준비해야 �
 
 ```bash
 # msa-user-service 폴더 안에서 실행
-cp .env.sample .env.local
-cp .env.sample .env
+$ cp .env.sample .env.local
+$ cp .env.sample .env
 ```
 
 **`.env.local` (로컬 IDE 실행용 예시)**
@@ -86,14 +86,14 @@ EUREKA_URL=discovery-server:8761/eureka/
 ### 1. 로컬 환경에서 직접 실행
 ```bash
 # 1. msa-user-service 폴더에서 프로젝트 빌드
-cd msa-user-service
-./gradlew clean build
+$ cd msa-user-service
+$ ./gradlew clean build
 
 # 2. 프로젝트 최상위 폴더(MSA-Study)로 이동
-cd ..
+$ cd ..
 
 # 3. JAR 파일 실행
-java -jar msa-user-service/build/libs/msa-user-service-1.0.0.jar
+$ java -jar msa-user-service/build/libs/msa-user-service-1.0.0.jar
 ```
 
 ### 2. Docker 컨테이너로 실행
@@ -104,7 +104,7 @@ java -jar msa-user-service/build/libs/msa-user-service-1.0.0.jar
 
 # 2. docker-compose.yml 파일에 user-service가 포함되어 있는지 확인 후,
 #    --build 옵션으로 이미지를 생성하며 모든 서비스를 함께 실행
-docker-compose up --build -d
+$ docker-compose up --build -d
 ```
 
 ## ⚙️ 설정 관리 (Configuration Management)

@@ -7,7 +7,7 @@ plugins {
 }
 
 group = "study.msa"
-version = "0.0.1-SNAPSHOT"
+version = "1.0.0"
 
 java {
 	toolchain {
@@ -25,11 +25,14 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect") // Kotlin Reflection, Required for Spring
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // Jackson Kotlin Module, JSON Serialization/Deserialization
 	implementation("io.github.oshai:kotlin-logging-jvm:7.0.11") // Kotlin Logging, Logging for Kotlin
+	implementation("io.github.cdimascio:dotenv-kotlin:6.5.1") // Dotenv library for environment variable management
+	implementation("com.github.ben-manes.caffeine:caffeine") // Caffeine caching library
 
 	implementation("org.springframework.boot:spring-boot-starter-web") // Web, REST API
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa") // JPA, Hibernate
 	implementation("org.springframework.boot:spring-boot-starter-actuator") // Actuator, Monitoring
 	implementation("org.springframework.boot:spring-boot-starter-security") // Security, JWT
+	implementation("org.springframework.boot:spring-boot-starter-cache") // Spring Boot Starter for caching
 
 	implementation("io.jsonwebtoken:jjwt-api:0.12.6") // JJWT API, JSON Web Token
 	implementation("io.jsonwebtoken:jjwt-impl:0.12.6") // JJWT Implementation, JSON Web Token

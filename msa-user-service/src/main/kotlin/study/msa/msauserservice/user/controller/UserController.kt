@@ -3,7 +3,6 @@ package study.msa.msauserservice.user.controller
 import io.github.oshai.kotlinlogging.KotlinLogging
 import io.micrometer.core.annotation.Timed
 import jakarta.servlet.http.HttpServletRequest
-import org.apache.coyote.BadRequestException
 import org.springframework.core.env.Environment
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -60,10 +59,7 @@ class UserController(
     }
 
     @GetMapping("/users/{userId}")
-    fun getUser(@PathVariable("userId") userId: String?): ResponseEntity<ResponseUserDetail> {
-        if (userId.isNullOrBlank()) {
-            throw BadRequestException("User ID must not be null or blank")
-        }
+    fun getUser(@PathVariable("userId") userId: String): ResponseEntity<ResponseUserDetail> {
         val userDetailDto = userService.getUserByUserId(userId)
 
         return ResponseEntity.ok().body(ResponseUserDetail.fromUserDetailDto(userDetailDto))

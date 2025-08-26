@@ -1,16 +1,14 @@
 server:
-  port: 0
+  port: ${SERVER_PORT:8090} # :8090은 기본값으로, 변수가 없을 경우 사용됩니다.
 
 spring:
   application:
     name: msa-user-service
   rabbitmq:
-    host: 127.0.0.1
+    host: localhost
     port: 5672
     username: admin
     password: admin
-#  config:
-#    import: "optional:configserver:http://localhost:8888"
   datasource:
     url: jdbc:mysql://localhost:3306/msa-user-1
     username: root
@@ -20,30 +18,22 @@ spring:
       ddl-auto: update
     show-sql: true
     generate-ddl: true
-    database: mysql
-#    defer-datasource-initialization: true
+    open-in-view: false
   security:
     user:
       name: test
       password: $2a$10$MfHrLw/sjpTqrW2Hveg9uu0WyDP3.Z4uuj9lnJdn5UJ1CLs5pnski
-#  redis:
-#    host: localhost
-#    port: 6379
-#    redisson:
-#      config:
-#        singleServerConfig:
-#          address: "redis://127.0.0.1:6379"
-
 
 eureka:
   instance:
-    instance-id: ${spring.application.name}:${random.value}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
     prefer-ip-address: true
   client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
+
+gateway:
+  secret: gateway-secret-key
 
 greeting:
   message: Welcome to the Simple E-commerce - 2nd.
@@ -66,13 +56,3 @@ management:
   zipkin:
     tracing:
       endpoint: "http://localhost:9411/api/v2/spans"
-
-#logging:
-#  pattern:
-#    level: "%5p [%X{traceId:-},%X{spanId:-}]"
-
-#logging:
-#  level:
-#    org.springframework.security: DEBUG
-#    study.msa.msauserservice.client: DEBUG
-

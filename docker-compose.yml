@@ -34,11 +34,19 @@ services:
     networks:
       - msa-net
 
-  # --- 여기에 user-service, order-service 등을 계속 추가 ---
-  # user-service:
-  #   build: ./msa-user-service
-  #   image: user-service:1.0
-  #   ...
+  user-service:
+    build: ./msa-user-service
+    image: user-service:1.0.0
+    container_name: user-service
+    ports:
+      - "8090:8090"
+    depends_on:
+      discovery-server:
+        condition: service_started
+      config-service:
+        condition: service_started
+    networks:
+      - msa-net
 
 networks:
   msa-net:

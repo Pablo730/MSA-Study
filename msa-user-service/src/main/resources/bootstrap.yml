@@ -1,7 +1,16 @@
 spring:
   cloud:
     config:
-      uri: http://localhost:8888
-      name: user-service
-#  profiles:
-#    active: dev
+      discovery:
+        enabled: true
+        service-id: ${CONFIG_SERVICE_ID}
+      username: ${CONFIG_SERVER_USER}
+      password: ${CONFIG_SERVER_PASSWORD}
+      name: ${CONFIG_NAME}
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_USER}:${EUREKA_PASSWORD}@${EUREKA_URL}

@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.env.Environment
 import org.springframework.security.authentication.AuthenticationManager
+import org.springframework.security.authorization.AuthorizationDecision
 import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
@@ -36,14 +37,14 @@ class WebSecurity(
         http.csrf { csrf: CsrfConfigurer<HttpSecurity> -> csrf.disable() }
             .authorizeHttpRequests(
                 { auth -> auth
-                    .requestMatchers("/h2-console/**").permitAll() // 특정 경로 허용
                     .requestMatchers("/actuator/**").permitAll() // 특정 경로 허용
                     .requestMatchers("/health-check/**").permitAll() // 특정 경로 허용
-                    .requestMatchers("/**").access(
-                        // cmd -> ifconfig -> en0 -> inet
-                        WebExpressionAuthorizationManager("hasIpAddress('127.0.0.1') or hasIpAddress('::1') or hasIpAddress('192.168.30.41') or hasIpAddress('::1')")
-                    ) // host pc ip address
-                    .anyRequest().authenticated() // 모든 요청은 인증 필요
+                    .anyRequest().access { _, context ->
+                        val request = context.request
+                        // 요청 헤더에 X-MSA-REQUEST가 있고, 그 값이 gateway 비밀키와 일치하는지 확인
+                        val isFromGateway = request.getHeader("X-MSA-REQUEST") == env.getProperty("gateway.secret")
+                        AuthorizationDecision(isFromGateway)
+                    }
                 }
             )
             .authenticationManager(authenticationManager)

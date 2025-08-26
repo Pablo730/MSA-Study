@@ -85,6 +85,11 @@ spring:
                 baseMessage: Spring Cloud Gateway Webflux Global Filter
                 preLogger: true
                 postLogger: true
+            # 모든 요청에 X-MSA-REQUEST 헤더를 추가하는 필터
+            - AddRequestHeader=X-MSA-REQUEST, ${gateway.secret}
+
+gateway:
+  secret: gateway-secret-key
 
 eureka:
   instance:

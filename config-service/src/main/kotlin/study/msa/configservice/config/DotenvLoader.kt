@@ -26,7 +26,7 @@ object DotenvLoader {
         val envFileName = when {
             envFile.exists() -> envFile.path
             localEnvFile.exists() -> localEnvFile.path
-            else -> null // .env와 .env.sample 둘 다 없을 경우
+            else -> null // .env와 .env.local 둘 다 없을 경우
         }
 
         // 4. 파일이 존재하면, 내용을 읽어 시스템 프로퍼티로 설정합니다.

@@ -1,9 +1,14 @@
 server:
-  port: 0
+  port: ${SERVER_PORT:8085} # :8085은 기본값으로, 변수가 없을 경우 사용됩니다.
 
 spring:
   application:
     name: msa-order-service
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: admin
   datasource:
     url: jdbc:mysql://localhost:3306/msa-order-1
     username: root
@@ -13,16 +18,18 @@ spring:
       ddl-auto: update
     show-sql: true
     generate-ddl: true
-    database: mysql
-#    defer-datasource-initialization: true
+    open-in-view: false
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
 eureka:
   instance:
-    instance-id: ${spring.application.name}:${random.value}
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
     prefer-ip-address: true
   client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
     fetch-registry: true
     register-with-eureka: true
 
@@ -39,12 +46,4 @@ management:
       produce: B3
   zipkin:
     tracing:
-      endpoint: "http://localhost:9411/api/v2/spans"
-
-#logging:
-#  pattern:
-#    level: "%5p [%X{traceId:-},%X{spanId:-}]"
-
-#logging:
-#  level:
-#    study.msa.msaorderservice.client: DEBUG
+      endpoint: http://localhost:9411/api/v2/spans

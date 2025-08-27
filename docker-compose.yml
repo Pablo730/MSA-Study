@@ -62,6 +62,20 @@ services:
     networks:
       - msa-net
 
+  order-service:
+    build: ./msa-order-service
+    image: order-service:1.0.0
+    container_name: order-service
+    ports:
+      - "8085:8085"
+    depends_on:
+      discovery-server:
+        condition: service_started
+      config-service:
+        condition: service_started
+    networks:
+      - msa-net
+
 networks:
   msa-net:
     external: true

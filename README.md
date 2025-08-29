@@ -18,7 +18,7 @@
 
 | 구분 | 구성 요소 | 실행 환경 | 역할 |
 | :--- | :--- | :--- | :--- |
-| **인프라** | `MySQL`, `Kafka (KRaft)`, `Kafka Connect`, `Kafka UI` | Docker Compose | 상태를 저장하는 핵심 데이터 시스템 |
+| **인프라** | `MySQL`, `Kafka (KRaft)`, `Kafka Connect`, `Kafka UI` | Kubernetes | 상태를 저장하는 핵심 데이터 시스템 |
 | **애플리케이션** | `Gateway`, `User`, `Order`, `Catalog` | Kubernetes | 비즈니스 로직을 처리하는 무상태(Stateless) 서비스 |
 | **모니터링** | `Prometheus`, `Grafana`, `Zipkin`, `Dashboard` | Kubernetes | 애플리케이션과 클러스터를 관찰하는 시스템 |
 

@@ -4,18 +4,13 @@ server:
 spring:
   application:
     name: gateway
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: admin
-    password: admin
   cloud:
     gateway:
       server:
         webflux:
           routes:
             - id: user-service-register
-              uri: lb://MSA-USER-SERVICE
+              uri: lb://user-service
               predicates:
                 - Path=/user-service/users
                 - Method=POST
@@ -24,7 +19,7 @@ spring:
                 - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
             - id: user-service-login
-              uri: lb://MSA-USER-SERVICE
+              uri: lb://user-service
               predicates:
                 - Path=/user-service/login
                 - Method=POST
@@ -33,7 +28,7 @@ spring:
                 - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
             - id: user-service-actuator
-              uri: lb://MSA-USER-SERVICE
+              uri: lb://user-service
               predicates:
                 - Path=/user-service/actuator/**
                 - Method=GET,POST
@@ -42,7 +37,7 @@ spring:
                 - RewritePath=/user-service/(?<segment>.*), /$\{segment}
 
             - id: user-service
-              uri: lb://MSA-USER-SERVICE
+              uri: lb://user-service
               predicates:
                 - Path=/user-service/**
                 - Method=GET
@@ -52,7 +47,7 @@ spring:
                 - AuthorizationHeaderFilter
 
             - id: catalog-service-actuator
-              uri: lb://MSA-CATALOG-SERVICE
+              uri: lb://catalog-service
               predicates:
                 - Path=/catalog-service/actuator/**
                 - Method=GET,POST
@@ -61,12 +56,12 @@ spring:
                 - RewritePath=/catalog-service/(?<segment>.*), /$\{segment}
 
             - id: catalog-service
-              uri: lb://MSA-CATALOG-SERVICE
+              uri: lb://catalog-service
               predicates:
                 - Path=/catalog-service/**
 
             - id: order-service-actuator
-              uri: lb://MSA-ORDER-SERVICE
+              uri: lb://order-service
               predicates:
                 - Path=/order-service/actuator/**
                 - Method=GET,POST
@@ -75,7 +70,7 @@ spring:
                 - RewritePath=/order-service/(?<segment>.*), /$\{segment}
 
             - id: order-service
-              uri: lb://MSA-ORDER-SERVICE
+              uri: lb://order-service
               predicates:
                 - Path=/order-service/**
 
@@ -90,14 +85,6 @@ spring:
 
 gateway:
   secret: gateway-secret-key
-
-eureka:
-  instance:
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
-    prefer-ip-address: true
-  client:
-    fetch-registry: true
-    register-with-eureka: true
 
 token:
   secret: my-very-long-secret-key-1234567890123456
@@ -115,4 +102,4 @@ management:
       produce: B3
   zipkin:
     tracing:
-      endpoint: http://localhost:9411/api/v2/spans
+      endpoint: http://zipkin-service:9411/api/v2/spans

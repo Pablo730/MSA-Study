@@ -29,8 +29,6 @@ WORKDIR /app
 # 빌드 단계에서 생성된 파일들을 최종 이미지로 복사합니다.
 # 1. 실행 가능한 JAR 파일
 COPY --from=builder /workspace/build/libs/*.jar ./app.jar
-# 2. .env 파일
-COPY --from=builder /workspace/.env ./
 
 # User Service가 사용할 포트를 외부에 노출
 EXPOSE 8090

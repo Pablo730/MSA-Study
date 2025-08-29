@@ -1,16 +1,11 @@
 server:
-  port: ${SERVER_PORT:8090} # :8090은 기본값으로, 변수가 없을 경우 사용됩니다.
+  port: 8090
 
 spring:
   application:
-    name: msa-user-service
-  rabbitmq:
-    host: localhost
-    port: 5672
-    username: admin
-    password: admin
+    name: user-service
   datasource:
-    url: jdbc:mysql://localhost:3306/msa-user-1
+    url: jdbc:mysql://mysql-service:3306/msa-study?allowPublicKeyRetrieval=true
     username: root
     password: root
   jpa:
@@ -23,14 +18,6 @@ spring:
     user:
       name: test
       password: $2a$10$MfHrLw/sjpTqrW2Hveg9uu0WyDP3.Z4uuj9lnJdn5UJ1CLs5pnski
-
-eureka:
-  instance:
-    instance-id: ${spring.cloud.client.ip-address}:${server.port}
-    prefer-ip-address: true
-  client:
-    fetch-registry: true
-    register-with-eureka: true
 
 gateway:
   secret: gateway-secret-key
@@ -55,4 +42,4 @@ management:
       produce: B3
   zipkin:
     tracing:
-      endpoint: "http://localhost:9411/api/v2/spans"
+      endpoint: http://zipkin-service:9411/api/v2/spans

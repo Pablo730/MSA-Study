@@ -1,0 +1,35 @@
+# --- 1. Deployment: Order Service 컨테이너를 실행하고 설정을 주입하는 역할 ---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order-service
+  template:
+    metadata:
+      labels:
+        app: order-service
+    spec:
+      containers:
+        - name: order-container
+          image: order-service:1.0.0
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8085
+
+---
+# --- 2. Service: Order Service를 위한 내부 주소를 만드는 역할 ---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+spec:
+  type: ClusterIP
+  selector:
+    app: order-service
+  ports:
+    - port: 8085
+      targetPort: 8085

@@ -25,22 +25,18 @@ dependencies {
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions") // Reactor Kotlin Extensions
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor") // Kotlin Coroutines for Reactor
 	implementation("io.github.oshai:kotlin-logging-jvm:7.0.11") // Kotlin Logging
-	implementation("io.github.cdimascio:dotenv-kotlin:6.5.1") // Dotenv library for environment variable management
-	implementation("com.github.ben-manes.caffeine:caffeine") // Caffeine caching library
 
 	implementation("org.springframework.boot:spring-boot-starter-validation") // Spring Boot Starter for validation
 	implementation("org.springframework.boot:spring-boot-starter-actuator") // Spring Boot Actuator
-	implementation("org.springframework.boot:spring-boot-starter-cache") // Spring Boot Starter for caching
+
+	implementation("org.springframework.cloud:spring-cloud-starter-kubernetes-client-config") // Spring Cloud Kubernetes Client Config
+	implementation("org.springframework.cloud:spring-cloud-starter-kubernetes-client-loadbalancer") // Spring Cloud Kubernetes Client LoadBalancer
 
 	implementation("io.jsonwebtoken:jjwt-api:0.12.6") // JJWT API for JWT handling
 	implementation("io.jsonwebtoken:jjwt-impl:0.12.6") // JJWT Implementation for JWT handling
 	implementation("io.jsonwebtoken:jjwt-jackson:0.12.6") // JJWT Jackson for JSON processing
 
 	implementation("org.springframework.cloud:spring-cloud-starter-gateway-server-webflux") // Spring Cloud Gateway with WebFlux
-	implementation("org.springframework.cloud:spring-cloud-starter-netflix-eureka-client") // Eureka Client for Service Discovery
-	implementation("org.springframework.cloud:spring-cloud-starter-config") // Spring Cloud Config Client
-	implementation("org.springframework.cloud:spring-cloud-starter-bus-amqp") // Spring Cloud Bus with AMQP
-	implementation("org.springframework.cloud:spring-cloud-starter-bootstrap") // Spring Cloud Bootstrap for Configuration
 
 	implementation("io.micrometer:micrometer-tracing-bridge-brave") // Micrometer Tracing with Brave
 	implementation("io.zipkin.reporter2:zipkin-reporter-brave") // Zipkin Reporter for Brave
